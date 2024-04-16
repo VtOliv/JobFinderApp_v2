@@ -16,8 +16,8 @@ import { Feather } from '@expo/vector-icons';
 
 // or any files within the Snack
 import AppLogo from '../CommonPages/AppLogo';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useMemo, useState } from 'react';
+import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
 
 
 
@@ -28,18 +28,25 @@ function JobsList() {
   const [filtro, setFiltro] = useState(null);
   const [tipo, setTipo] = useState("jobName");
 
+  const radioButtons: RadioButtonProps[] = useMemo(() => ([
+    { id: 'jobName', label: 'Cargo' },
+    { id: 'companyName', label: 'Empresa' },
+    { id: 'officeHour', label: 'Horário' }
+  ]), []);
+
+
   useEffect(() => {
     fetch(`http://192.168.1.2:8097/find?${tipo}=${filtro}`)
       .then((response) => response.json())
       .then((data) => {
-        if(filtro != "") {
+        if (filtro != "") {
           setFiltered(data.content);
         }
       })
       .catch((err) => {
         console.log('ERRO:' + err.message);
       });
-  }, []);
+  }, [filtered]);
 
   useEffect(() => {
     fetch('http://192.168.1.2:8097/')
@@ -50,7 +57,7 @@ function JobsList() {
       .catch((err) => {
         console.log('ERRO:' + err.message);
       });
-  }, []);
+  }, [vagas]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,13 +65,12 @@ function JobsList() {
         <Card style={styles.card}>
           <AppLogo />
 
-          <RNPickerSelect
-            onValueChange={(value) => setTipo(value)}
-            items={[
-              { label: "Cargo", value: "jobName" },
-              { label: "Empresa", value: "companyName" },
-              { label: "Horário", value: "officeHour" }
-            ]}
+          <RadioGroup
+          containerStyle={styles.radio}
+            layout='row'
+            radioButtons={radioButtons}
+            onPress={setTipo}
+            selectedId={tipo}
           />
           <View style={styles.searchBar}>
             <TextInput style={styles.input} onChangeText={(text => setFiltro(text))} />
@@ -154,4 +160,9 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
   },
+  radio: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 5,
+  }
 });

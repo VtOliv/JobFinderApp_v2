@@ -36,14 +36,14 @@ function SignIn({ navigation }: { navigation: any }) {
         email: email,
         password: password,
         cpf: cpf,
-        isRecruiter: recruiter === '1'? true : false
+        isRecruiter: recruiter === '1' ? true : false
       })
     })
       .then(response => response.json())
       .then(res => {
-        if(res.id != null){
-          Alert.alert(`${res.isRecruiter? 'Recrutador': 'Usuário'} cadastrado com sucesso`)
-          setTimeout(() => navigation.navigate('Login') , 3000)
+        if (res.id != null) {
+          Alert.alert(`${res.isRecruiter ? 'Recrutador' : 'Usuário'} cadastrado com sucesso`)
+          setTimeout(() => navigation.navigate('Login'), 3000)
         }
       })
   }
@@ -96,11 +96,11 @@ function SignIn({ navigation }: { navigation: any }) {
 
       <Text style={styles.text}>Você é:</Text>
       <RadioGroup
-            layout='column'
-            radioButtons={radioButtons} 
-            onPress={setRecruiter}
-            selectedId={recruiter}
-        />
+        layout='row'
+        radioButtons={radioButtons}
+        onPress={setRecruiter}
+        selectedId={recruiter}
+      />
 
       <View style={styles.btnView}>
         <TouchableOpacity
