@@ -1,30 +1,55 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Text,
   TextInput,
   View,
   TouchableOpacity,
   StyleSheet,
+  Alert,
+  KeyboardAvoidingView
 } from 'react-native';
 import AppLogo from './AppLogo';
+import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
 
 function SignIn({ navigation }: { navigation: any }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [dtnasc, setDtnasc] = useState('');
+  const [password, setPassword] = useState('');
+  const [recruiter, setRecruiter] = useState<string | undefined>();
 
-  function logResults() {
-    console.warn(nome);
-    console.warn(email);
-    console.warn(cpf);
-    console.warn(telefone);
-    console.warn(dtnasc);
+  const radioButtons: RadioButtonProps[] = useMemo(() => ([
+    { id: '1', label: 'Recrutador', value: 'true' },
+    { id: '2', label: 'Usuário', value: 'false' }
+  ]), []);
+
+  const cadastrar = async () => {
+
+    await fetch('http://192.168.1.2:8097/user/create', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: nome,
+        email: email,
+        password: password,
+        cpf: cpf,
+        isRecruiter: recruiter === '1'? true : false
+      })
+    })
+      .then(response => response.json())
+      .then(res => {
+        if(res.id != null){
+          Alert.alert(`${res.isRecruiter? 'Recrutador': 'Usuário'} cadastrado com sucesso`)
+          setTimeout(() => navigation.navigate('Login') , 3000)
+        }
+      })
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <AppLogo />
 
       <Text style={styles.title}>Cadastre-se</Text>
@@ -60,32 +85,28 @@ function SignIn({ navigation }: { navigation: any }) {
         }}
       />
 
-      <Text style={styles.text}>Telefone:</Text>
+      <Text style={styles.text}>Senha:</Text>
       <TextInput
         style={styles.input}
-        keyboardType="numeric"
-        placeholder="Digite seu Telefone"
-        value={telefone}
-        onChangeText={(value) => {
-          setTelefone(value);
-        }}
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
       />
 
-      <Text style={styles.text}>Data de nascimento:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Digite sua Data de nascimento"
-        value={dtnasc}
-        onChangeText={(value) => {
-          setDtnasc(value);
-        }}
-      />
+      <Text style={styles.text}>Você é:</Text>
+      <RadioGroup
+            layout='column'
+            radioButtons={radioButtons} 
+            onPress={setRecruiter}
+            selectedId={recruiter}
+        />
+
       <View style={styles.btnView}>
         <TouchableOpacity
           style={styles.btn}
           key={'send'}
-          onPress={() => navigation.navigate('Login')}>
+          onPress={cadastrar}>
           <Text style={styles.text}>Enviar</Text>
         </TouchableOpacity>
 
@@ -95,7 +116,7 @@ function SignIn({ navigation }: { navigation: any }) {
           <Text style={styles.text}>Voltar</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -137,11 +158,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  btnView:{
+  btnView: {
     flexDirection: 'row',
     width: '90%',
     justifyContent: 'center',
-  }
+  },
+  pickerInput: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderStyle: 'solid',
+    borderColor: '#7ac6c0',
+    borderRadius: 5,
+    color: 'black',
+    margin: 5,
+  },
 });
 
 export default SignIn;
