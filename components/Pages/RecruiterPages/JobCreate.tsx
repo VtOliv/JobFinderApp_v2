@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet , Text } from "react-native";
-import AppLogo from "../AppLogo";
+import AppLogo from "../CommonPages/AppLogo";
 
 export default function JobCreate({ navigation }: { navigation: any }) {
 

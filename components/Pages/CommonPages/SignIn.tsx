@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import AppLogo from '../AppLogo';
+import AppLogo from './AppLogo';
 
 function SignIn({ navigation }: { navigation: any }) {
   const [nome, setNome] = useState('');
@@ -121,9 +121,9 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 5,
     alignSelf: 'center',
-    backgroundColor: '#eb5e28',
+    backgroundColor: '#7ac6c0',
     borderStyle: 'solid',
-    borderColor: '#eb5e28',
+    borderColor: '#7ac6c0',
     borderRadius: 5,
     margin: 5,
   },
