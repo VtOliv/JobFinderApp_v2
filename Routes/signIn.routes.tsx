@@ -5,6 +5,7 @@ import SignIn from '../components/Pages/CommonPages/SignIn';
 import Login from '../components/Pages/CommonPages/Login';
 import { UserRoutes } from './user.routes';
 import { RecruiterRoutes } from './recruiter.routes';
+import AppLogo from '../components/Pages/CommonPages/AppLogo';
 
 const Stack = createStackNavigator();
 
@@ -24,14 +25,19 @@ export function SignInRoutes() {
           options={{ title: 'Cadastre-se' }}
         />
         <Stack.Screen
+          name="Logo"
+          component={AppLogo}
+          options={{ title: 'Logo' }}
+        />
+        <Stack.Screen
           name="UserLoggedIn"
           component={UserRoutes}
-          options={{ title: 'List' }}
+          options={{ title: 'UserRoutes' }}
         />
         <Stack.Screen
           name="RecruiterLoggedIn"
           component={RecruiterRoutes}
-          options={{ title: 'List' }}
+          options={{ title: 'RecruiterRoutes' }}
         />
       </Stack.Navigator>
   );

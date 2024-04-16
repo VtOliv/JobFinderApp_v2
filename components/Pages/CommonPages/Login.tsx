@@ -7,18 +7,12 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
-import AssetExample from './AppLogo';
+import AppLogo from './AppLogo';
 import storage from '../../Services/Storage';
 
 const Login = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
-
 
   const loginMethod = async () => {
 
@@ -40,6 +34,7 @@ const Login = ({ navigation }: { navigation: any }) => {
             storage.save({
               key: 'loginState',
               data: {
+                id: res.id,
                 name: res.name,
                 role: res.role
               }
@@ -54,7 +49,7 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.container}>
-      <AssetExample />
+      <AppLogo margin={0} logout={false}/>
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}

@@ -1,85 +1,136 @@
-import React, { useState, useEffect } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet , Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, TextInput, TouchableOpacity, StyleSheet , Text, Alert  } from "react-native";
 import AppLogo from "../CommonPages/AppLogo";
+import storage from "../../Services/Storage";
 
 export default function JobCreate({ navigation }: { navigation: any }) {
 
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [dtnasc, setDtnasc] = useState('');
+    const [jobName, setJobName] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [shortDescription, setShortDescription] = useState('');
+    const [description, setDescription] = useState('');
+    const [income, setIncome] = useState('');
+    const [officeHour, setOfficeHour] = useState('');
+    const [id, setId] = useState();
+
+    useEffect(() => {
+        storage.load({key: 'loginState'}).then(response => setId(response.id))
+        })
+
+    const getInfo = () => {
+        console.log(id)
+    }
+
+    const cadastrar = async () => {
+
+        await fetch('http://192.168.1.2:8097/create', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            jobName: jobName,
+            companyName: companyName,
+            shortDescription: shortDescription,
+            description: description,
+            income: income,
+            officeHour: officeHour,
+            savedById: id
+          })
+        })
+          .then(response => response.json())
+          .then(res => {
+            if (res.id != null) {
+              Alert.alert(`Vaga ${res.jobName} cadastrada com sucesso`)
+            //   setTimeout(() => navigation.navigate('Login'), 3000)
+            }
+          })
+      }
+
 
     return (
 
         <View style={styles.container}>
-            <AppLogo />
+            <AppLogo margin={0} logout={false}/>
 
-            <Text style={styles.title}>Cadastre-se</Text>
+            <Text style={styles.title}>Nova vaga</Text>
 
-            <Text style={styles.text}>Nome:</Text>
+            <Text style={styles.text}>Nome da Vaga:</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Digite seu Nome"
-                value={nome}
+                placeholder="Digite o Nome"
+                value={jobName}
                 onChangeText={(value) => {
-                    setNome(value);
+                    setJobName(value);
                 }}
             />
 
-            <Text style={styles.text}>Email:</Text>
+            <Text style={styles.text}>Nome da empresa:</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Digite seu Email"
-                value={email}
+                placeholder="Digite o nome da empresa"
+                value={companyName}
                 onChangeText={(value) => {
-                    setEmail(value);
+                    setCompanyName(value);
                 }}
             />
 
-            <Text style={styles.text}>CPF:</Text>
+            <Text style={styles.text}>Descrição resumida:</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Digite seu CPF"
-                value={cpf}
+                placeholder="Digite a descrição resumida"
+                value={shortDescription}
+                onChangeText={(value) => {
+                    setShortDescription(value);
+                }}
+            />
+
+            <Text style={styles.text}>Descrição da vaga:</Text>
+            <TextInput
+                editable
+                multiline
+                numberOfLines={4}
+                maxLength={400}
+                style={styles.input}
+                placeholder="Digite a descrição da vaga"
+                value={description}
+                onChangeText={(value) => {
+                    setDescription(value);
+                }}
+            />
+
+            <Text style={styles.text}>Salário previsto:</Text>
+            <TextInput
+                style={styles.input}
                 keyboardType="numeric"
+                placeholder="Digite o valor"
+                value={income}
                 onChangeText={(value) => {
-                    setCpf(value);
+                    setIncome(value);
                 }}
             />
 
-            <Text style={styles.text}>Telefone:</Text>
+            <Text style={styles.text}>Horário:</Text>
             <TextInput
                 style={styles.input}
-                keyboardType="numeric"
-                placeholder="Digite seu Telefone"
-                value={telefone}
+                placeholder="Digite o horário"
+                value={officeHour}
                 onChangeText={(value) => {
-                    setTelefone(value);
-                }}
-            />
-
-            <Text style={styles.text}>Data de nascimento:</Text>
-            <TextInput
-                style={styles.input}
-                keyboardType="numeric"
-                placeholder="Digite sua Data de nascimento"
-                value={dtnasc}
-                onChangeText={(value) => {
-                    setDtnasc(value);
+                    setOfficeHour(value);
                 }}
             />
             <View style={styles.btnView}>
                 <TouchableOpacity
                     style={styles.btn}
                     key={'send'}
-                    onPress={() => navigation.navigate('Login')}>
-                    <Text style={styles.text}>Enviar</Text>
+                    onPress={cadastrar}>
+                    <Text style={styles.text}>Cadastrar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => navigation.navigate('Login')}>
+                    onPress={getInfo}>
                     <Text style={styles.text}>Voltar</Text>
                 </TouchableOpacity>
             </View>
@@ -110,9 +161,9 @@ const styles = StyleSheet.create({
       height: 40,
       padding: 5,
       alignSelf: 'center',
-      backgroundColor: '#eb5e28',
+      backgroundColor: '#7ac6c0',
       borderStyle: 'solid',
-      borderColor: '#eb5e28',
+      borderColor: '#7ac6c0',
       borderRadius: 5,
       margin: 5,
     },

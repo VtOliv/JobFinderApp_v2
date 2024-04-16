@@ -1,9 +1,11 @@
 import { Text, SafeAreaView } from "react-native"
+import AppLogo from "../CommonPages/AppLogo"
 
 export default function MyApplies() {
     return (
         <SafeAreaView>
-            <Text>Página minhas candidaturas</Text>
+            <AppLogo margin={15} logout={true}/>
+            <Text style={{margin: 15, justifyContent:'center'}}>Página minhas candidaturas</Text>
         </SafeAreaView>
     )
 }

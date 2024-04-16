@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import AppLogo from './AppLogo';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
+import MaskInput, { Masks } from 'react-native-mask-input';
 
 function SignIn({ navigation }: { navigation: any }) {
   const [nome, setNome] = useState('');
@@ -22,6 +23,8 @@ function SignIn({ navigation }: { navigation: any }) {
     { id: '1', label: 'Recrutador', value: 'true' },
     { id: '2', label: 'Usuário', value: 'false' }
   ]), []);
+
+  const CPF_MASK = [/\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, "-", /\d/, /\d/]
 
   const cadastrar = async () => {
 
@@ -50,7 +53,7 @@ function SignIn({ navigation }: { navigation: any }) {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <AppLogo />
+      <AppLogo margin={0} logout={false}/>
 
       <Text style={styles.title}>Cadastre-se</Text>
 
@@ -75,15 +78,17 @@ function SignIn({ navigation }: { navigation: any }) {
       />
 
       <Text style={styles.text}>CPF:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite seu CPF"
-        value={cpf}
-        keyboardType="numeric"
-        onChangeText={(value) => {
-          setCpf(value);
-        }}
-      />
+      <MaskInput
+      keyboardType="numeric"
+      maxLength={14}
+      style={styles.input}
+      placeholder="Digite seu CPF"
+      value={cpf}
+      onChangeText={(value) => {
+        setCpf(value);
+      }}
+      mask={Masks.BRL_CPF}
+    />
 
       <Text style={styles.text}>Senha:</Text>
       <TextInput

@@ -8,11 +8,9 @@ import {
   ScrollView,
   Button,
 } from 'react-native';
-import RNPickerSelect from "react-native-picker-select";
 
 // You can import supported modules from npm
 import { Card } from 'react-native-paper';
-import { Feather } from '@expo/vector-icons';
 
 // or any files within the Snack
 import AppLogo from '../CommonPages/AppLogo';
@@ -35,7 +33,7 @@ function JobsList() {
   ]), []);
 
 
-  useEffect(() => {
+  const filtrar = () => {
     fetch(`http://192.168.1.2:8097/find?${tipo}=${filtro}`)
       .then((response) => response.json())
       .then((data) => {
@@ -46,7 +44,12 @@ function JobsList() {
       .catch((err) => {
         console.log('ERRO:' + err.message);
       });
-  }, [filtered]);
+  }
+
+  const limpar = () => {
+    setFiltro('')
+    setFiltered(vagas)
+  }
 
   useEffect(() => {
     fetch('http://192.168.1.2:8097/')
@@ -57,13 +60,13 @@ function JobsList() {
       .catch((err) => {
         console.log('ERRO:' + err.message);
       });
-  }, [vagas]);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Card style={styles.card}>
-          <AppLogo />
+          <AppLogo margin={15} logout={true}/>
 
           <RadioGroup
           containerStyle={styles.radio}
@@ -73,10 +76,15 @@ function JobsList() {
             selectedId={tipo}
           />
           <View style={styles.searchBar}>
-            <TextInput style={styles.input} onChangeText={(text => setFiltro(text))} />
-            <TouchableOpacity>
-              <Feather name="search" size={40} color="grey" />
-            </TouchableOpacity>
+            <TextInput style={styles.input} value={filtro} onChangeText={(text => setFiltro(text))} />
+            {/* <TouchableOpacity>
+              
+              <Feather name="search" size={40} color="grey" onPress={filtrar}/>
+            </TouchableOpacity> */}
+          </View>
+          <View style={styles.searchBar}>
+            <Button color={'#7ac6c0'} title='Pesquisar' onPress={filtrar}/>
+            <Button color={'#7ac6c0'} title='Limpar' onPress={limpar}/>
           </View>
 
           {filtered.length > 0 && filtered.map((item) => {
@@ -159,6 +167,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flexDirection: 'row',
+    justifyContent: 'center'
   },
   radio: {
     flex: 1,

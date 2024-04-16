@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import JobsList from '../components/Pages/UserPages/JobsList';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MyApplies from '../components/Pages/UserPages/MyApplies';
+import MyProfile from '../components/Pages/UserPages/MyProfile';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -25,6 +26,16 @@ export function UserRoutes() {
         options={{
           tabBarIcon: () => {
             return <MaterialCommunityIcons name="briefcase-check-outline" size={24} color="black" />;
+          },
+        }}
+      />
+
+      <Screen
+        name="Meu Perfil"
+        component={MyProfile}
+        options={{
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="account-circle" size={24} color="black" />;
           },
         }}
       />
