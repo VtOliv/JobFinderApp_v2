@@ -77,10 +77,6 @@ function JobsList() {
           />
           <View style={styles.searchBar}>
             <TextInput style={styles.input} value={filtro} onChangeText={(text => setFiltro(text))} />
-            {/* <TouchableOpacity>
-              
-              <Feather name="search" size={40} color="grey" onPress={filtrar}/>
-            </TouchableOpacity> */}
           </View>
           <View style={styles.searchBar}>
             <Button color={'#7ac6c0'} title='Pesquisar' onPress={filtrar}/>

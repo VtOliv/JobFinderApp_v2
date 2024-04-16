@@ -43,7 +43,12 @@ export default function JobCreate({ navigation }: { navigation: any }) {
           .then(res => {
             if (res.id != null) {
               Alert.alert(`Vaga ${res.jobName} cadastrada com sucesso`)
-            //   setTimeout(() => navigation.navigate('Login'), 3000)
+              setJobName("")
+              setCompanyName("")
+              setDescription("")
+              setShortDescription("")
+              setIncome("")
+              setOfficeHour("")
             }
           })
       }
