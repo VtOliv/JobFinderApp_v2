@@ -16,6 +16,7 @@ import { Card } from 'react-native-paper';
 import AppLogo from '../CommonPages/AppLogo';
 import { useEffect, useMemo, useState } from 'react';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
+import { IP } from '..';
 
 
 
@@ -34,7 +35,7 @@ function JobsList() {
 
 
   const filtrar = () => {
-    fetch(`http://192.168.1.2:8097/find?${tipo}=${filtro}`)
+    fetch(`${IP}/find?${tipo}=${filtro}`)
       .then((response) => response.json())
       .then((data) => {
         if (filtro != "") {
@@ -52,7 +53,7 @@ function JobsList() {
   }
 
   useEffect(() => {
-    fetch('http://192.168.1.2:8097/')
+    fetch(`${IP}`)
       .then((response) => response.json())
       .then((data) => {
         setVagas(data.content);

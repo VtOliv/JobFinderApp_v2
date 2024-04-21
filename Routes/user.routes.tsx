@@ -11,7 +11,7 @@ export function UserRoutes() {
   return (
     <Navigator screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: '#7ac6c0' }, tabBarLabelStyle: { color: 'black' } }}>
       <Screen
-        name="JobsList"
+        name="Vagas"
         component={JobsList}
         options={{
           tabBarIcon: () => {

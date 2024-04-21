@@ -11,6 +11,7 @@ import {
 import AppLogo from './AppLogo';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
 import MaskInput, { Masks } from 'react-native-mask-input';
+import { IP } from '..';
 
 function SignIn({ navigation }: { navigation: any }) {
   const [nome, setNome] = useState('');
@@ -28,7 +29,7 @@ function SignIn({ navigation }: { navigation: any }) {
 
   const cadastrar = async () => {
 
-    await fetch('http://192.168.1.2:8097/user/create', {
+    await fetch(`${IP}/user/create`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

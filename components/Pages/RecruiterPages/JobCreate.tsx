@@ -23,7 +23,7 @@ export default function JobCreate({ navigation }: { navigation: any }) {
 
     const cadastrar = async () => {
 
-        await fetch('http://192.168.1.2:8097/create', {
+        await fetch('http://192.168.246.67:8097/create', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

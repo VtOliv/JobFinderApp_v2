@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AppLogo from './AppLogo';
 import storage from '../../Services/Storage';
+import { IP } from '..';
 
 const Login = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const Login = ({ navigation }: { navigation: any }) => {
 
   const loginMethod = async () => {
 
-    await fetch('http://192.168.1.2:8097/user/login', {
+    await fetch(`${IP}/user/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -39,10 +40,14 @@ const Login = ({ navigation }: { navigation: any }) => {
                 role: res.role
               }
             });
+            setEmail('')
+            setPassword('')
             res.role === 'Recrutador'? navigation.navigate('RecruiterLoggedIn') : navigation.navigate('UserLoggedIn')
           } catch (error) {
             console.log(error)
           }
+        } else {
+          Alert.alert('Login ou senha inválido !')
         }
       })
   }
