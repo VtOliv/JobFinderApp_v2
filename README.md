@@ -2,6 +2,16 @@
 
 Este é um aplicativo React Native desenvolvido para ajudar os usuários a encontrarem seu primeiro emprego. O aplicativo fornece uma interface amigável para os usuários pesquisarem por oportunidades de emprego, criar perfis e se candidatarem a vagas disponíveis.
 
+## Time de desenvolvimento
+| NOME                  | RA           |
+| ----------------------| ------------ |
+| VITOR DE OLIVEIRA (SM)| 202202149021 |
+| ANDERSON              | xxxxxxxxxxxx |
+| VICTOR SANTOS         | 202203450352 |
+| GUILHERME GOMES       | xxxxxxxxxxxx |
+| FABIO FIALHO          | xxxxxxxxxxxx |
+
+
 ## Instalação
 
 Para executar o aplicativo localmente, siga estas etapas:
@@ -33,6 +43,13 @@ Para executar o aplicativo localmente, siga estas etapas:
     # ou
     npx react-native run-ios
     ```
+
+
+## Diagrama de fluxo
+
+Diagrama que visa mostrar os possíveis fluxos de navegação do usuário
+
+[](assets/JobFinderDiagram.jpg)
 
 ## Uso
 

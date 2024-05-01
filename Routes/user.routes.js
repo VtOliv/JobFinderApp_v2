@@ -4,10 +4,14 @@ import JobsList from '../components/Pages/UserPages/JobsList';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MyApplies from '../components/Pages/UserPages/MyApplies';
 import MyProfile from '../components/Pages/UserPages/MyProfile';
+import { createStackNavigator } from '@react-navigation/stack';
+import ApplyPage from '../components/Pages/UserPages/ApplyPage';
+import EditProfile from '../components/Pages/UserPages/EditProfile';
 
 const { Navigator, Screen } = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export function UserRoutes() {
+function Routes() {
   return (
     <Navigator screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: '#7ac6c0' }, tabBarLabelStyle: { color: 'black' } }}>
       <Screen
@@ -41,4 +45,30 @@ export function UserRoutes() {
       />
     </Navigator>
   );
+}
+
+export function UserRoutes() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
+      <Stack.Screen
+        name="user"
+        component={Routes}
+        options={{ headerShown: false }} />
+      <Stack.Screen
+        name="apply"
+        component={ApplyPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="edit"
+        component={EditProfile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MyProfile"
+        component={MyProfile}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  )
 }

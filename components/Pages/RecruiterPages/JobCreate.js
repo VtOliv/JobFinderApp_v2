@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet , Text, Alert  } from "react-native";
 import AppLogo from "../CommonPages/AppLogo";
-import storage from "../../Services/Storage";
+import { IP } from "..";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
-export default function JobCreate({ navigation }: { navigation: any }) {
+export default function JobCreate({ navigation }) {
 
+  const { getItem, setItem } = useAsyncStorage("id");
     const [jobName, setJobName] = useState('');
     const [companyName, setCompanyName] = useState('');
     const [shortDescription, setShortDescription] = useState('');
@@ -14,8 +16,14 @@ export default function JobCreate({ navigation }: { navigation: any }) {
     const [id, setId] = useState();
 
     useEffect(() => {
-        storage.load({key: 'loginState'}).then(response => setId(response.id))
-        })
+      getFromStorage()
+    })
+  
+    async function getFromStorage() {
+      const item = await getItem();
+      let data = JSON.parse(item);
+      setId(data)
+    }
 
     const getInfo = () => {
         console.log(id)
@@ -23,7 +31,7 @@ export default function JobCreate({ navigation }: { navigation: any }) {
 
     const cadastrar = async () => {
 
-        await fetch('http://192.168.246.67:8097/create', {
+        await fetch(`${IP}/create`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -57,7 +65,7 @@ export default function JobCreate({ navigation }: { navigation: any }) {
     return (
 
         <View style={styles.container}>
-            <AppLogo margin={0} logout={false}/>
+            <AppLogo margin={0}/>
 
             <Text style={styles.title}>Nova vaga</Text>
 

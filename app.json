@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo-no-background.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.myapp"
     },
     "web": {
       "favicon": "./assets/logo-no-background.png"

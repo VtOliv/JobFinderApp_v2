@@ -13,19 +13,17 @@ import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
 import MaskInput, { Masks } from 'react-native-mask-input';
 import { IP } from '..';
 
-function SignIn({ navigation }: { navigation: any }) {
+function SignIn({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
-  const [recruiter, setRecruiter] = useState<string | undefined>();
+  const [recruiter, setRecruiter] = useState();
 
-  const radioButtons: RadioButtonProps[] = useMemo(() => ([
+  const radioButtons = useMemo(() => ([
     { id: '1', label: 'Recrutador', value: 'true' },
     { id: '2', label: 'Usuário', value: 'false' }
   ]), []);
-
-  const CPF_MASK = [/\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, "-", /\d/, /\d/]
 
   const cadastrar = async () => {
 

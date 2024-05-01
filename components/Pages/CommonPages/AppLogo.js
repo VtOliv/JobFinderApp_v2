@@ -1,16 +1,18 @@
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, StatusBar } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useState } from 'react';
+import { logoutFunc } from '..';
 
-export default function AppLogo({ margin, logout}) {
+export default function AppLogo({ margin }) {
+  const [hidden, setHidden] = useState(true);
 
   return (
-
     <View style={styles.container}>
-      {logout ? <View style={styles.icon}>
-          <Text>Logout</Text>
-          <MaterialCommunityIcons name='logout' size={25}/>
-      </View>
-        : <></>}
+      <StatusBar
+        animated={true}
+        backgroundColor="#61dafb"
+        hidden={hidden}
+      />
       <Image style={{ height: 50, width: 250, marginTop: margin }} source={require('../../../assets/logo-no-background.png')} />
     </View>
   );
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   icon: {
-    marginTop: 15,
+    marginTop: 0,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end'
