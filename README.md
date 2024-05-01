@@ -85,7 +85,7 @@ O aplicativo "Ferramenta de Busca do Primeiro Emprego" é destinado a pessoas qu
 
 - **Cadastro de Vagas**: Os recrutadores podem cadastrar suas respectivas vagas por meio do app de forma rápida e simples.
 
-![](assets/perfil.jpg)
+![](assets/cadastrodevaga.jpg)
 
 ## Perguntas Frequentes
 
