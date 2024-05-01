@@ -49,19 +49,33 @@ Para executar o aplicativo localmente, siga estas etapas:
 
 Diagrama que visa mostrar os possíveis fluxos de navegação do usuário
 
-[](assets/JobFinderDiagram.jpg)
+![](assets/JobFinderDiagram.jpg)
 
 ## Uso
 
 O aplicativo "Ferramenta de Busca do Primeiro Emprego" é destinado a pessoas que estão procurando seu primeiro emprego. Aqui estão algumas das principais funcionalidades e usos do aplicativo:
 
-- **Pesquisa de Vagas**: Os usuários podem pesquisar por vagas de emprego filtrando por localização, setor e outros critérios.
+### Para quem busca emprego :
+
+- **Cadastro simplificado**: Os usuários poderão se cadastrar informando poucos dados , podendo opcionalmente complementar com mais dados após o processo.
+
+![](assets/cadastro.jpg)
+
+![](assets/login.jpg)
+
+- **Pesquisa de Vagas**: Os usuários podem pesquisar por vagas de emprego filtrando por cargo, empresa ou horário.
+
+![](assets/listadevagas.jpg)
   
 - **Criação de Perfil**: Os usuários podem criar perfis pessoais onde podem adicionar suas informações de contato, habilidades e experiências.
 
-- **Candidatura a Vagas**: Os usuários podem se candidatar a vagas diretamente pelo aplicativo, enviando seus currículos e cartas de apresentação.
+![](assets/perfil.jpg)
 
-- **Acompanhamento de Candidaturas**: Os usuários podem acompanhar o status de suas candidaturas e receber notificações sobre atualizações.
+### Para quem oferece emprego :
+
+- **Cadastro de Vagas**: Os recrutadores podem cadastrar suas respectivas vagas por meio do app de forma rápida e simples.
+
+![](assets/perfil.jpg)
 
 ## Perguntas Frequentes
 
