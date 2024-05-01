@@ -6,10 +6,20 @@ Este é um aplicativo React Native desenvolvido para ajudar os usuários a encon
 | NOME                  | RA           |
 | ----------------------| ------------ |
 | VITOR DE OLIVEIRA (SM)| 202202149021 |
-| ANDERSON              | xxxxxxxxxxxx |
+| ANDERSON              | 202202149802 |
 | VICTOR SANTOS         | 202203450352 |
 | GUILHERME GOMES       | xxxxxxxxxxxx |
 | FABIO FIALHO          | xxxxxxxxxxxx |
+
+
+## Tecnologias utilizadas
+| TIPO                  | ESCOLHA             |
+| ----------------------| ------------------- |
+| DATABASE              | MONGODB - NOSQL     |
+| BIBLIOTECA NATIVA     | REACT NATIVE - EXPO |
+| BACKEND               | JAVA + SPRING BOOT  |
+| FERRAMENTA SCRUM      | JIRA                |
+
 
 
 ## Instalação
@@ -83,13 +93,13 @@ O aplicativo "Ferramenta de Busca do Primeiro Emprego" é destinado a pessoas qu
 
 Para atualizar seu perfil, faça login no aplicativo e vá para a seção "Meu Perfil". Lá você terá a opção de editar suas informações, adicionar novas habilidades ou experiências.
 
-### Posso receber notificações sobre novas vagas?
-
-Sim, o aplicativo oferece a opção de ativar notificações. Vá para as configurações do aplicativo e ative a opção de notificações para receber alertas sobre novas vagas correspondentes ao seu perfil.
-
 ### Como faço para me candidatar a uma vaga?
 
 Para se candidatar a uma vaga, pesquise por vagas disponíveis, clique na vaga desejada e selecione a opção "Candidatar-se". Você será direcionado a uma página onde poderá enviar seu currículo e carta de apresentação.
+
+### Posso acompanhar minha candidatura?
+
+Sim, o aplicativo oferece a visão do status da sua candidatura e também dispara emails para avisar cada mudança ocorrida no status.
 
 ---
 
