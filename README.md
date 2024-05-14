@@ -9,7 +9,7 @@ Este é um aplicativo React Native desenvolvido para ajudar os usuários a encon
 | ANDERSON              | 202202149802 |
 | VICTOR SANTOS         | 202203450352 |
 | GUILHERME GOMES       | 202202149926 |
-| FABIO FIALHO          | xxxxxxxxxxxx |
+| FABIO FIALHO          | 202201069767 |
 
 
 ## Tecnologias utilizadas
