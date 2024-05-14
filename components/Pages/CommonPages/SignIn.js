@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from "react";
 import {
   Text,
   TextInput,
@@ -6,53 +6,59 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  KeyboardAvoidingView
-} from 'react-native';
-import AppLogo from './AppLogo';
-import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
-import MaskInput, { Masks } from 'react-native-mask-input';
-import { IP } from '..';
+  KeyboardAvoidingView,
+} from "react-native";
+import AppLogo from "./AppLogo";
+import RadioGroup, { RadioButtonProps } from "react-native-radio-buttons-group";
+import MaskInput, { Masks } from "react-native-mask-input";
+import { createUserURL } from "..";
 
 function SignIn({ navigation }) {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [password, setPassword] = useState('');
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [password, setPassword] = useState("");
   const [recruiter, setRecruiter] = useState();
 
-  const radioButtons = useMemo(() => ([
-    { id: '1', label: 'Recrutador', value: 'true' },
-    { id: '2', label: 'Usuário', value: 'false' }
-  ]), []);
+  const radioButtons = useMemo(
+    () => [
+      { id: "1", label: "Recrutador", value: "true" },
+      { id: "2", label: "Usuário", value: "false" },
+    ],
+    []
+  );
 
   const cadastrar = async () => {
-
-    await fetch(`${IP}/user/create`, {
-      method: 'POST',
+    await fetch(createUserURL, {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: nome,
         email: email,
         password: password,
         cpf: cpf,
-        isRecruiter: recruiter === '1' ? true : false
-      })
+        isRecruiter: recruiter === "1" ? true : false,
+      }),
     })
-      .then(response => response.json())
-      .then(res => {
+      .then((response) => response.json())
+      .then((res) => {
         if (res.id != null) {
-          Alert.alert(`${res.isRecruiter ? 'Recrutador' : 'Usuário'} cadastrado com sucesso`)
-          setTimeout(() => navigation.navigate('Login'), 3000)
+          Alert.alert(
+            `${
+              res.isRecruiter ? "Recrutador" : "Usuário"
+            } cadastrado com sucesso`
+          );
+          setTimeout(() => navigation.navigate("Login"), 3000);
         }
-      })
-  }
+      });
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <AppLogo margin={0} logout={false}/>
+      <AppLogo margin={0} logout={false} />
 
       <Text style={styles.title}>Cadastre-se</Text>
 
@@ -78,16 +84,16 @@ function SignIn({ navigation }) {
 
       <Text style={styles.text}>CPF:</Text>
       <MaskInput
-      keyboardType="numeric"
-      maxLength={14}
-      style={styles.input}
-      placeholder="Digite seu CPF"
-      value={cpf}
-      onChangeText={(value) => {
-        setCpf(value);
-      }}
-      mask={Masks.BRL_CPF}
-    />
+        keyboardType="numeric"
+        maxLength={14}
+        style={styles.input}
+        placeholder="Digite seu CPF"
+        value={cpf}
+        onChangeText={(value) => {
+          setCpf(value);
+        }}
+        mask={Masks.BRL_CPF}
+      />
 
       <Text style={styles.text}>Senha:</Text>
       <TextInput
@@ -100,23 +106,21 @@ function SignIn({ navigation }) {
 
       <Text style={styles.text}>Você é:</Text>
       <RadioGroup
-        layout='row'
+        layout="row"
         radioButtons={radioButtons}
         onPress={setRecruiter}
         selectedId={recruiter}
       />
 
       <View style={styles.btnView}>
-        <TouchableOpacity
-          style={styles.btn}
-          key={'send'}
-          onPress={cadastrar}>
+        <TouchableOpacity style={styles.btn} key={"send"} onPress={cadastrar}>
           <Text style={styles.text}>Enviar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => navigation.navigate('Login')}>
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.text}>Voltar</Text>
         </TouchableOpacity>
       </View>
@@ -127,54 +131,54 @@ function SignIn({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   input: {
     margin: 10,
     marginTop: 0,
     padding: 6,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: "grey",
     borderRadius: 4,
-    width: '80%',
+    width: "80%",
   },
   btn: {
-    width: '40%',
+    width: "40%",
     height: 40,
     padding: 5,
-    alignSelf: 'center',
-    backgroundColor: '#7ac6c0',
-    borderStyle: 'solid',
-    borderColor: '#7ac6c0',
+    alignSelf: "center",
+    backgroundColor: "#7ac6c0",
+    borderStyle: "solid",
+    borderColor: "#7ac6c0",
     borderRadius: 5,
     margin: 5,
   },
   text: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
-    textAlign: 'center'
+    textAlign: "center",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   btnView: {
-    flexDirection: 'row',
-    width: '90%',
-    justifyContent: 'center',
+    flexDirection: "row",
+    width: "90%",
+    justifyContent: "center",
   },
   pickerInput: {
     fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 10,
-    borderStyle: 'solid',
-    borderColor: '#7ac6c0',
+    borderStyle: "solid",
+    borderColor: "#7ac6c0",
     borderRadius: 5,
-    color: 'black',
+    color: "black",
     margin: 5,
   },
 });

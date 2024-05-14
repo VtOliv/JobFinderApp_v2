@@ -26,6 +26,9 @@
     },
     "web": {
       "favicon": "./assets/logo-no-background.png"
+    },
+    "rules": {
+      "import/no-cycle": "off"
     }
   }
 }

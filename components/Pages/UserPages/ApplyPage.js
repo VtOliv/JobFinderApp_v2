@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { FAB , Appbar } from "react-native-paper";
-import { IP } from "..";
+import { FAB } from "react-native-paper";
+import { applyURL } from "..";
 import AppLogo from "../CommonPages/AppLogo";
+import Navbar from "./UserNav";
 
 export default function ApplyPage({ navigation, route }) {
   const [jobId, setJobId] = useState();
@@ -12,7 +13,7 @@ export default function ApplyPage({ navigation, route }) {
   const [userId, setUserId] = useState();
 
   const sendApply = () => {
-    fetch(`${IP}/apply`, {
+    fetch(applyURL, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -47,7 +48,7 @@ export default function ApplyPage({ navigation, route }) {
 
   return (
     <View>
-      <AppLogo margin={15}/>
+      <Navbar />
       <Text>
         O jobId é {id} e o user é {userId}
       </Text>

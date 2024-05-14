@@ -1,7 +1,5 @@
-import { Text, View, StyleSheet, Image, StatusBar } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
 import { useState } from 'react';
-import { logoutFunc } from '..';
 
 export default function AppLogo({ margin }) {
   const [hidden, setHidden] = useState(true);

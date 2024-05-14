@@ -1,17 +1,13 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-    container: {
-        backgroundColor: '#FFFFFF',
-        paddingHorizontal: 20,
-        paddingTop: 40,
-    },
     header: {
         alignItems: 'center',
         backgroundColor: '#7ac6c0',
         borderRadius: 10,
         padding: 20,
-        marginBottom: 20,
+        marginVertical: 10,
+        marginHorizontal: 20,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,

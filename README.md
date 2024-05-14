@@ -8,7 +8,7 @@ Este é um aplicativo React Native desenvolvido para ajudar os usuários a encon
 | VITOR DE OLIVEIRA (SM)| 202202149021 |
 | ANDERSON              | 202202149802 |
 | VICTOR SANTOS         | 202203450352 |
-| GUILHERME GOMES       | xxxxxxxxxxxx |
+| GUILHERME GOMES       | 202202149926 |
 | FABIO FIALHO          | xxxxxxxxxxxx |
 
 

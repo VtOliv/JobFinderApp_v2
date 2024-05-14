@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import AppLogo from "./AppLogo";
-import { IP } from "..";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LoginURL } from "..";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { TextInput } from "react-native-paper";
 
 const Login = ({ navigation }) => {
+  const { getItem, setItem } = useAsyncStorage("id");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleStorage(id, name, role) {
-    await AsyncStorage.setItem("login", JSON.stringify(id, name, role));
+  async function handleStorage(id) {
+    await setItem(id);
   }
 
   const loginMethod = async () => {
-    await fetch(`${IP}/user/login`, {
+    await fetch(LoginURL, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -29,7 +30,7 @@ const Login = ({ navigation }) => {
       .then((res) => {
         if (res.result === "success") {
           try {
-            handleStorage(res.id.toString(), res.name, res.role);
+            handleStorage(res.id.toString());
             setEmail("");
             setPassword("");
             res.role === "Recrutador"

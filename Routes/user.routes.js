@@ -1,25 +1,37 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import JobsList from '../components/Pages/UserPages/JobsList';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import MyApplies from '../components/Pages/UserPages/MyApplies';
-import MyProfile from '../components/Pages/UserPages/MyProfile';
-import { createStackNavigator } from '@react-navigation/stack';
-import ApplyPage from '../components/Pages/UserPages/ApplyPage';
-import EditProfile from '../components/Pages/UserPages/EditProfile';
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import JobsList from "../components/Pages/UserPages/JobsList";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import MyApplies from "../components/Pages/UserPages/MyApplies";
+import MyProfile from "../components/Pages/UserPages/MyProfile";
+import { createStackNavigator } from "@react-navigation/stack";
+import EditProfile from "../components/Pages/UserPages/EditProfile";
+import ApplyPage from "../components/Pages/UserPages/ApplyPage";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function Routes() {
   return (
-    <Navigator screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: '#7ac6c0' }, tabBarLabelStyle: { color: 'black' } }}>
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: { backgroundColor: "#7ac6c0" },
+        tabBarLabelStyle: { color: "black" },
+      }}
+    >
       <Screen
         name="Vagas"
         component={JobsList}
         options={{
           tabBarIcon: () => {
-            return <MaterialCommunityIcons name="format-list-text" size={24} color="black" />;
+            return (
+              <MaterialCommunityIcons
+                name="format-list-text"
+                size={24}
+                color="black"
+              />
+            );
           },
         }}
       />
@@ -29,7 +41,13 @@ function Routes() {
         component={MyApplies}
         options={{
           tabBarIcon: () => {
-            return <MaterialCommunityIcons name="briefcase-check-outline" size={24} color="black" />;
+            return (
+              <MaterialCommunityIcons
+                name="briefcase-check-outline"
+                size={24}
+                color="black"
+              />
+            );
           },
         }}
       />
@@ -39,7 +57,13 @@ function Routes() {
         component={MyProfile}
         options={{
           tabBarIcon: () => {
-            return <MaterialCommunityIcons name="account-circle" size={24} color="black" />;
+            return (
+              <MaterialCommunityIcons
+                name="account-circle"
+                size={24}
+                color="black"
+              />
+            );
           },
         }}
       />
@@ -53,7 +77,8 @@ export function UserRoutes() {
       <Stack.Screen
         name="user"
         component={Routes}
-        options={{ headerShown: false }} />
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="apply"
         component={ApplyPage}
@@ -67,8 +92,8 @@ export function UserRoutes() {
       <Stack.Screen
         name="MyProfile"
         component={MyProfile}
-        options={{ headerShown: false }}
+        options={{ headerShown: true, headerTitle: "Meu Perfil" }}
       />
     </Stack.Navigator>
-  )
+  );
 }

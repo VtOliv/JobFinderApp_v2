@@ -9,16 +9,20 @@ import {
   BackHandler,
 } from "react-native";
 
-// You can import supported modules from npm
-import { Card, TextInput } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Card,
+  TextInput,
+  HelperText,
+} from "react-native-paper";
 
-// or any files within the Snack
 import AppLogo from "../CommonPages/AppLogo";
 import { useEffect, useMemo, useState } from "react";
 import RadioGroup, { RadioButtonProps } from "react-native-radio-buttons-group";
-import { IP } from "..";
+import { baseURL, searchURL } from "..";
 import { ModalStyles, JobsListStyles } from "../Styles";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import Navbar from "./UserNav";
 
 export default function JobsList({ navigation }) {
   const { getItem, setItem } = useAsyncStorage("id");
@@ -27,6 +31,9 @@ export default function JobsList({ navigation }) {
   const [filtro, setFiltro] = useState(null);
   const [tipo, setTipo] = useState("jobName");
   const [id, setId] = useState();
+  const [loading, setLoading] = useState();
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState();
 
   const radioButtons = useMemo(
     () => [
@@ -47,7 +54,7 @@ export default function JobsList({ navigation }) {
     setId(data);
   }
   const filtrar = () => {
-    fetch(`${IP}/find?${tipo}=${filtro}`)
+    fetch(`${searchURL}${tipo}=${filtro}`)
       .then((response) => response.json())
       .then((data) => {
         if (filtro != "") {
@@ -65,17 +72,46 @@ export default function JobsList({ navigation }) {
   };
 
   useEffect(() => {
-    fetch(`${IP}`)
+    setPage(0);
+
+    fetch(`${baseURL}?page=${page}`)
       .then((response) => response.json())
       .then((data) => {
         setVagas(data.content);
+        setTotalPages(data.totalPages);
+        setPage(1);
       })
       .catch((err) => {
         console.log("ERRO:" + err.message);
-      });
+      })
+      .finally(() => setLoading(false));
 
-      getFromStorage()
+    getFromStorage();
   }, []);
+
+  function loadNextPage() {
+    setLoading(true);
+    if (page === totalPages) {
+      Alert.alert("Não há mais vagas para carregar");
+      setLoading(false);
+      return;
+    }
+
+    fetch(`${baseURL}?page=${page}`)
+      .then((response) => response.json())
+      .then((data) => {
+        var newArr = vagas.concat(data.content);
+        setVagas(newArr);
+      })
+      .catch((err) => {
+        console.log("ERRO:" + err.message);
+      })
+      .finally(() => setLoading(false));
+
+    var newPage = page + 1;
+    console.log(newPage);
+    setPage(newPage);
+  }
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -90,86 +126,90 @@ export default function JobsList({ navigation }) {
   return (
     <SafeAreaView style={JobsListStyles.container}>
       <ScrollView>
-        <Card style={JobsListStyles.card}>
-          <AppLogo margin={15}/>
+        <Navbar navigation={navigation} />
 
-          <RadioGroup
-            containerStyle={JobsListStyles.radio}
-            layout="row"
-            radioButtons={radioButtons}
-            onPress={setTipo}
-            selectedId={tipo}
+        <RadioGroup
+          containerStyle={JobsListStyles.radio}
+          layout="row"
+          radioButtons={radioButtons}
+          onPress={setTipo}
+          selectedId={tipo}
+        />
+        <View style={JobsListStyles.searchBar}>
+          <TextInput
+            label="Filtrar"
+            placeholder="Busque sua vaga"
+            mode="outlined"
+            theme={{ colors: { primary: "#7ac6c0" } }}
+            outlineColor="#7ac6c0"
+            style={JobsListStyles.input}
+            value={filtro}
+            onChangeText={(text) => setFiltro(text)}
+            autoCompleteType={undefined}
           />
-          <View style={JobsListStyles.searchBar}>
-            <TextInput
-              label="Filtrar"
-              placeholder="Busque sua vaga"
-              mode="outlined"
-              theme={{ colors: { primary: "#7ac6c0" } }}
-              outlineColor="#7ac6c0"
-              style={JobsListStyles.input}
-              value={filtro}
-              onChangeText={(text) => setFiltro(text)}
-              autoCompleteType={undefined}
-            />
-          </View>
-          <View style={JobsListStyles.searchBar}>
-            <Button color={"#7ac6c0"} title="Pesquisar" onPress={filtrar} />
-            <Button color={"#7ac6c0"} title="Limpar" onPress={limpar} />
-          </View>
+          <HelperText type="info" visible={true}>
+            Pesquise suas vagas utilizando os filtros acima
+          </HelperText>
+        </View>
+        <View style={JobsListStyles.searchButtons}>
+          <Button color={"#7ac6c0"} title="Pesquisar" onPress={filtrar} />
+          <Button color={"#7ac6c0"} title="Limpar" onPress={limpar} />
+        </View>
 
-          {filtered.length > 0 &&
-            filtered.map((item) => {
-              return (
-                <Card key={item.id} style={JobsListStyles.contentCard}>
-                  <Card.Title
-                    title={item.jobName}
-                    subtitle={item.companyName}
-                  />
-                  <Text style={JobsListStyles.company}>
-                    Horário: {item.officeHour}
-                  </Text>
-                  <Button
-                    color={"#7ac6c0"}
-                    title="Candidatar-se"
-                    onPress={() =>
-                      navigation.navigate("apply", { id: item.id , user: id})
-                    }
-                  />
-                </Card>
-              );
-            })}
+        {filtered.length > 0 &&
+          filtered.map((item) => {
+            return (
+              <Card key={item.id} style={JobsListStyles.contentCard}>
+                <Card.Title title={item.jobName} subtitle={item.companyName} />
+                <Text style={JobsListStyles.company}>
+                  Horário: {item.officeHour}
+                </Text>
+                <Button
+                  color={"#7ac6c0"}
+                  title="Candidatar-se"
+                  onPress={() =>
+                    navigation.navigate("apply", { id: item.id, user: id })
+                  }
+                />
+              </Card>
+            );
+          })}
 
-          {filtered.length == 0 &&
-            vagas.map((item) => {
-              return (
-                <Card key={item.id} style={JobsListStyles.contentCard}>
-                  <Card.Title
-                    title={item.jobName}
-                    subtitle={item.companyName}
-                  />
-                  <Text style={JobsListStyles.company}>
-                    Horário: {item.officeHour}
-                  </Text>
-                  <Button
-                    color={"#7ac6c0"}
-                    title="Candidatar-se"
-                    onPress={() =>
-                      navigation.navigate("apply", { id: item.id , user: id })
-                    }
-                  />
-                </Card>
-              );
-            })}
+        {filtered.length == 0 &&
+          vagas.map((item) => {
+            return (
+              <Card key={item.id} style={JobsListStyles.contentCard}>
+                <Card.Title title={item.jobName} subtitle={item.companyName} />
+                <Text style={JobsListStyles.company}>
+                  Horário: {item.officeHour}
+                </Text>
+                <Button
+                  color={"#7ac6c0"}
+                  title="Candidatar-se"
+                  onPress={() =>
+                    navigation.navigate("apply", { id: item.id, user: id })
+                  }
+                />
+              </Card>
+            );
+          })}
 
-          {vagas.length < 1 && filtered.length < 1 && (
-            <TouchableOpacity style={JobsListStyles.contentCard}>
-              <Text style={JobsListStyles.jobTitle}>
-                Não foi possível carregar vagas
-              </Text>
-            </TouchableOpacity>
-          )}
-        </Card>
+        {vagas.length < 1 && filtered.length < 1 && (
+          <TouchableOpacity style={JobsListStyles.contentCard}>
+            <Text style={JobsListStyles.jobTitle}>
+              Não foi possível carregar vagas
+            </Text>
+          </TouchableOpacity>
+        )}
+        {loading ? (
+          <ActivityIndicator color="7ac6c0" size={"small"} />
+        ) : (
+          <Button
+            color={"#7ac6c0"}
+            title="Carregar mais vagas"
+            onPress={() => loadNextPage()}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );
