@@ -187,7 +187,7 @@ export default function JobsList({ navigation }) {
                   color={"#7ac6c0"}
                   title="Candidatar-se"
                   onPress={() =>
-                    navigation.navigate("apply", { id: item.id, user: id })
+                    navigation.navigate("apply", { id: item.id, user: id , jobName: item.jobName})
                   }
                 />
               </Card>

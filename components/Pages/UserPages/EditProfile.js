@@ -7,8 +7,8 @@ export default function EditProfile({ navigation }){
 return (
 <View>
     <Navbar navigation={navigation} />
-    <Text>Funcionou</Text>
-    <TouchableOpacity onPress={navigation.navigate('MyProfile')}><Text>Voltar</Text></TouchableOpacity>
+    <Text>Ainda não implementado</Text>
+    <TouchableOpacity onPress={navigation.navigate('user')}><Text>Voltar</Text></TouchableOpacity>
 </View>
 )
 }

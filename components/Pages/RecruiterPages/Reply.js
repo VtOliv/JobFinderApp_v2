@@ -16,29 +16,30 @@ export default function Reply({ navigation }) {
   const [value, setValue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState();
+  const [applyMessage, setApplyMessage] = useState();
 
 
   async function sendViaAPI(applyId) {
-      try {
-        const id = await getItem();
-        const response = await fetch(`${replyURL}/${applyId}`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            replyMessage: textAPI,
-            status: 'Em processo'
-          })
-        });
-        const json = await response.json();
-        setResult(json)
-        console.log(json);
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-      }
-    
+    try {
+      const id = await getItem();
+      const response = await fetch(`${replyURL}/${applyId}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          replyMessage: textAPI,
+          status: 'Em processo'
+        })
+      });
+      const json = await response.json();
+      setResult(json)
+      console.log(json);
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+
     console.log("Texto enviado via API:", textAPI);
     Alert.alert("Texto enviado via API com sucesso!");
   };
@@ -48,7 +49,7 @@ export default function Reply({ navigation }) {
     // Configuração para enviar o e-mail
     const email = {
       subject: `Inscrição para a vaga ${data.jobName}`,
-      recipients: [recipientEmail],
+      recipients: ['vitorturmac@gmail.com'],
       body: textEmail,
       isHTML: false,
     };
@@ -63,6 +64,12 @@ export default function Reply({ navigation }) {
       }
     });
   };
+
+  useEffect(() => {
+    data.filter((item) => item.id === value).map((item) => { setApplyMessage(item.applyMessage) })
+
+    console.log(applyMessage);
+  }, [value])
 
   useEffect(() => {
     const fetchMyOpportunities = async () => {
@@ -99,7 +106,7 @@ export default function Reply({ navigation }) {
       <View style={styles.container}>
         <View style={styles.inputView}>
           <SelectList
-            dropdownStyles={{ backgroundColor: "#fff" , marginTop:0 }}
+            dropdownStyles={{ backgroundColor: "#fff", marginTop: 0 }}
             boxStyles={styles.dropdown}
             setSelected={(val) => setValue(val)}
             placeholder="Selecione a Vaga"
@@ -110,6 +117,19 @@ export default function Reply({ navigation }) {
           />
         </View>
         <View style={styles.inputView}>
+          <TextInput
+            style={styles.input}
+            theme={{ colors: { primary: "#7ac6c0" } }}
+            outlineColor="#7ac6c0"
+            disabled
+            mode="outlined"
+            label="Mensagem ao recrutador"
+            placeholder="Digite o texto para enviar"
+            numberOfLines={2}
+            editable
+            multiline
+            value={applyMessage}
+          />
           <TextInput
             style={styles.input}
             theme={{ colors: { primary: "#7ac6c0" } }}
@@ -179,7 +199,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     backgroundColor: "#fff",
-    marginTop:15
+    marginTop: 15
   },
   nav: {
     alignSelf: "flex-start",

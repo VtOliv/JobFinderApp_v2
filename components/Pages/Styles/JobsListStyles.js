@@ -45,8 +45,10 @@ export default StyleSheet.create({
   },
   searchButtons: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     margin: 1,
+    width:'60%',
+    alignSelf:'center'
   },
   radio: {
     flex: 1,

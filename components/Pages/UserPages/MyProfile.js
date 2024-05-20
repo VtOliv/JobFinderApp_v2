@@ -77,8 +77,7 @@ export default function MyProfile({ navigation, route }) {
                 <Text style={MyProfileStyles.text}>{userData.phoneNumber}</Text>
                 <Text style={MyProfileStyles.text}>{userData.address}</Text>
                 <TouchableOpacity
-                  style={[ModalStyles.button, ModalStyles.buttonClose]}
-                  onPress={() => navigation.navigate("edit")}
+                  style={[ModalStyles.button, ModalStyles.buttonClose]} disabled
                 >
                   <Text style={ModalStyles.textStyle}>Editar perfil</Text>
                 </TouchableOpacity>

@@ -1,4 +1,4 @@
-const baseURL = "http://192.168.1.5:8097";
+const baseURL = "http://192.168.128.236:8097";
 
 const LoginURL = `${baseURL}/user/login`;
 const createJobURL = `${baseURL}/create`;

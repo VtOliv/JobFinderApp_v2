@@ -87,7 +87,7 @@ export function UserRoutes() {
       <Stack.Screen
         name="edit"
         component={EditProfile}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       <Stack.Screen
         name="MyProfile"
