@@ -54,6 +54,28 @@ Para executar o aplicativo localmente, siga estas etapas:
     npx react-native run-ios
     ```
 
+## Escolhas de tecnogias
+
+
+Database - MongoDB
+Foi escolhido a plataforma MongoDB como base para persistência de dados do nosso App pelos seguintes motivos:
+- O MongoDB oferece uma instância limitada em cloud para uso pessoal ou estudos
+- Os bancos NoSQL tem uma performance superior em aplicações simples ou de baixa complexidade
+- Mesmo sem ter relacionamentos nativos por ser NoSQL, ainda é possível fazer relacionamentos diretamente no código
+- O MongoDB armazena dados em JSON, o que facilita a extração para testes mock ( sem backend e database )
+
+Backend - Java + SpringBoot
+Foi escolhido como backend Java + SpringBoot pelos seguintes motivos:
+- O Java com o spring oferece todas as ferramentas para se fazer um sistema API Rest
+- A integração do Java com o MongoDB é simples e muito completa, sendo possivel fazer de forma simples de consultas até filtros por query via código
+- Todo o time ja estudou Java anteriormente, então era a linguagem que todos tinham um conhecimento em comum
+
+Ferramenta Scrum - Jira
+Foi escolhido o Jira para acompanhamento do scrum pelos seguintes motivos:
+- O Jira é uma ferramenta de Scrum muito conceituada no mercado e muito completa
+- O Jira oferece toda a estrutura de backlog e quadro de sprint pré-montados, sendo necessário somente ajustá-lo a sua necessidade
+- O Jira tem suporte para fazer acompanhamento da sprint desde o poker planner até as métricas de cada sprint.
+
 
 ## Diagrama de fluxo
 
