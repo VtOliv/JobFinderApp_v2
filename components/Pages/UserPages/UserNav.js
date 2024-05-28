@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { baseURL } from "..";
+import { baseURL } from "../index";
 
 export default function Navbar({ navigation }) {
   const { getItem, removeItem } = useAsyncStorage("id");

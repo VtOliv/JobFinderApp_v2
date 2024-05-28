@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, View, StyleSheet, Text } from "react-native";
 import { TextInput, HelperText } from "react-native-paper";
-import { applyURL, searchURL } from "..";
+import { applyURL, searchURL } from "../index";
 import { JobsListStyles } from "../Styles";
 import Navbar from "./UserNav";
 

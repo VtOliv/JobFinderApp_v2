@@ -8,7 +8,7 @@ import { useState, useEffect, useCallback } from "react";
 import { List, Divider } from "react-native-paper";
 import Navbar from "../UserPages/UserNav";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { recruiterJobListURL } from "..";
+import { recruiterJobListURL } from "../index";
 import { MyOppsStyles } from "../Styles";
 
 export default function MyOpportunities({ navigation }) {

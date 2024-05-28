@@ -1,4 +1,5 @@
-const baseURL = "http://192.168.128.236:8097";
+
+const baseURL = "https://jobfinderservice.onrender.com";
 
 const LoginURL = `${baseURL}/user/login`;
 const createJobURL = `${baseURL}/create`;

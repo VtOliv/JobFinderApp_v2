@@ -9,7 +9,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { userDataURL } from "..";
+import { userDataURL } from "../index";
 import { ModalStyles, MyProfileStyles } from "../Styles";
 import Navbar from "./UserNav";
 

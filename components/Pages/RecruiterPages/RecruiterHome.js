@@ -10,7 +10,7 @@ import { Surface, HelperText, Modal } from "react-native-paper";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import Navbar from "../UserPages/UserNav";
-import { deactivateURL, overallURL, recruiterJobListURL } from "..";
+import { deactivateURL, overallURL, recruiterJobListURL } from "../index";
 import { SelectList } from "react-native-dropdown-select-list";
 
 export default function RecruiterHome({ navigation }) {

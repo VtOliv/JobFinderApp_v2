@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import AppLogo from "./AppLogo";
-import { LoginURL } from "..";
+import { LoginURL } from "../index";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { TextInput } from "react-native-paper";
 

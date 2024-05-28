@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, Alert, KeyboardAvoidingView } from "react-native";
 import { TextInput } from "react-native-paper";
 import AppLogo from "../CommonPages/AppLogo";
-import { createJobURL } from "..";
+import { createJobURL } from "../index";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import Navbar from "../UserPages/UserNav";
 

@@ -19,7 +19,7 @@ import {
 import AppLogo from "../CommonPages/AppLogo";
 import { useEffect, useMemo, useState } from "react";
 import RadioGroup, { RadioButtonProps } from "react-native-radio-buttons-group";
-import { baseURL, searchURL } from "..";
+import { baseURL, searchURL } from "../index";
 import { ModalStyles, JobsListStyles } from "../Styles";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import Navbar from "./UserNav";

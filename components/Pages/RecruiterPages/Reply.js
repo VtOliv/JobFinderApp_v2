@@ -5,7 +5,7 @@ import Mailer from "react-native-mail";
 import Navbar from "../UserPages/UserNav";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { recruiterAppliesURL, replyURL } from "..";
+import { recruiterAppliesURL, replyURL } from "../index";
 
 export default function Reply({ navigation }) {
   const [textAPI, setTextAPI] = useState("");

@@ -2,7 +2,7 @@ import { Text, ScrollView, StyleSheet } from "react-native";
 import { Card, Surface } from "react-native-paper";
 import Navbar from "./UserNav";
 import { useEffect, useState } from "react";
-import { appliesList } from "..";
+import { appliesList } from "../index";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 export default function MyApplies({navigation}) {

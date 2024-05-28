@@ -11,7 +11,7 @@ import {
 import AppLogo from "./AppLogo";
 import RadioGroup, { RadioButtonProps } from "react-native-radio-buttons-group";
 import MaskInput, { Masks } from "react-native-mask-input";
-import { createUserURL } from "..";
+import { createUserURL } from "../index";
 
 function SignIn({ navigation }) {
   const [nome, setNome] = useState("");
