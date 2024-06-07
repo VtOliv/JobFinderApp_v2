@@ -1,5 +1,6 @@
-
-const baseURL = "https://jobfinderservice.onrender.com";
+// const baseURL = "http://192.168.1.5:8097"
+const baseURL = "https://jobfinderservice.onrender.com"; 
+// const baseURL = "https://jobfinderapp.azurewebsites.net"; URL Azure
 
 const LoginURL = `${baseURL}/user/login`;
 const createJobURL = `${baseURL}/create`;
@@ -13,6 +14,7 @@ const recruiterJobListURL = `${baseURL}/recruiter`;
 const recruiterAppliesURL = `${baseURL}/applies`;
 const replyURL = `${baseURL}/reply`;
 const deactivateURL = `${baseURL}/deactivate`;
+const updateJobURL = `${baseURL}/update`;
 
 export {
   baseURL,

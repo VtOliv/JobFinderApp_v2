@@ -60,4 +60,23 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#ced0ce",
   },
+  buttons: {
+    backgroundColor: "#7ac6c0",
+    color: "white",
+    width:'35%',
+    justifyContent:'center',
+    alignItems:"center"
+  },
+  btnText: {
+    color: "white",
+    fontWeight: 'bold',
+    paddingVertical: 10,
+  },
+  cardButtons: {
+    backgroundColor: "#7ac6c0",
+    color: "white",
+    width:'100%',
+    justifyContent:'center',
+    alignItems:"center"
+  }
 });

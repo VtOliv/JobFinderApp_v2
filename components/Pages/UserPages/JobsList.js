@@ -7,29 +7,29 @@ import {
   Button,
   Alert,
   BackHandler,
-} from "react-native";
+} from 'react-native';
 
 import {
   ActivityIndicator,
   Card,
   TextInput,
   HelperText,
-} from "react-native-paper";
+} from 'react-native-paper';
 
-import AppLogo from "../CommonPages/AppLogo";
-import { useEffect, useMemo, useState } from "react";
-import RadioGroup, { RadioButtonProps } from "react-native-radio-buttons-group";
-import { baseURL, searchURL } from "../index";
-import { ModalStyles, JobsListStyles } from "../Styles";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import Navbar from "./UserNav";
+import AppLogo from '../CommonPages/AppLogo';
+import { useEffect, useMemo, useState } from 'react';
+import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
+import { baseURL, searchURL } from '../index';
+import { ModalStyles, JobsListStyles } from '../Styles';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import Navbar from './UserNav';
 
 export default function JobsList({ navigation }) {
-  const { getItem, setItem } = useAsyncStorage("id");
+  const { getItem, setItem } = useAsyncStorage('id');
   const [vagas, setVagas] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [filtro, setFiltro] = useState(null);
-  const [tipo, setTipo] = useState("jobName");
+  const [tipo, setTipo] = useState('jobName');
   const [id, setId] = useState();
   const [loading, setLoading] = useState();
   const [page, setPage] = useState(0);
@@ -37,9 +37,9 @@ export default function JobsList({ navigation }) {
 
   const radioButtons = useMemo(
     () => [
-      { id: "jobName", label: "Cargo" },
-      { id: "companyName", label: "Empresa" },
-      { id: "officeHour", label: "Horário" },
+      { id: 'jobName', label: 'Cargo' },
+      { id: 'companyName', label: 'Empresa' },
+      { id: 'officeHour', label: 'Horário' },
     ],
     []
   );
@@ -57,17 +57,17 @@ export default function JobsList({ navigation }) {
     fetch(`${searchURL}${tipo}=${filtro}`)
       .then((response) => response.json())
       .then((data) => {
-        if (filtro != "") {
+        if (filtro != '') {
           setFiltered(data.content);
         }
       })
       .catch((err) => {
-        console.log("ERRO:" + err.message);
+        console.log('ERRO:' + err.message);
       });
   };
 
   const limpar = () => {
-    setFiltro("");
+    setFiltro('');
     setFiltered(vagas);
   };
 
@@ -82,7 +82,7 @@ export default function JobsList({ navigation }) {
         setPage(1);
       })
       .catch((err) => {
-        console.log("ERRO:" + err.message);
+        console.log('ERRO:' + err.message);
       })
       .finally(() => setLoading(false));
 
@@ -92,7 +92,7 @@ export default function JobsList({ navigation }) {
   function loadNextPage() {
     setLoading(true);
     if (page === totalPages) {
-      Alert.alert("Não há mais vagas para carregar");
+      Alert.alert('Não há mais vagas para carregar');
       setLoading(false);
       return;
     }
@@ -104,7 +104,7 @@ export default function JobsList({ navigation }) {
         setVagas(newArr);
       })
       .catch((err) => {
-        console.log("ERRO:" + err.message);
+        console.log('ERRO:' + err.message);
       })
       .finally(() => setLoading(false));
 
@@ -115,7 +115,7 @@ export default function JobsList({ navigation }) {
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
+      'hardwareBackPress',
       () => {
         return true;
       }
@@ -140,7 +140,7 @@ export default function JobsList({ navigation }) {
             label="Filtrar"
             placeholder="Busque sua vaga"
             mode="outlined"
-            theme={{ colors: { primary: "#7ac6c0" } }}
+            theme={{ colors: { primary: '#7ac6c0' } }}
             outlineColor="#7ac6c0"
             style={JobsListStyles.input}
             value={filtro}
@@ -152,8 +152,12 @@ export default function JobsList({ navigation }) {
           </HelperText>
         </View>
         <View style={JobsListStyles.searchButtons}>
-          <Button color={"#7ac6c0"} title="Pesquisar" onPress={filtrar} />
-          <Button color={"#7ac6c0"} title="Limpar" onPress={limpar} />
+          <TouchableOpacity style={JobsListStyles.buttons} onPress={filtrar}>
+            <Text style={JobsListStyles.btnText}>Pesquisar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={JobsListStyles.buttons} onPress={limpar}>
+            <Text style={JobsListStyles.btnText}>Limpar</Text>
+          </TouchableOpacity>
         </View>
 
         {filtered.length > 0 &&
@@ -164,13 +168,13 @@ export default function JobsList({ navigation }) {
                 <Text style={JobsListStyles.company}>
                   Horário: {item.officeHour}
                 </Text>
-                <Button
-                  color={"#7ac6c0"}
-                  title="Candidatar-se"
+                <TouchableOpacity
+                  style={JobsListStyles.cardButtons}
                   onPress={() =>
-                    navigation.navigate("apply", { id: item.id, user: id })
-                  }
-                />
+                    navigation.navigate('apply', { id: item.id, user: id })
+                  }>
+                  <Text style={JobsListStyles.btnText}>Candidatar-se</Text>
+                </TouchableOpacity>
               </Card>
             );
           })}
@@ -183,13 +187,17 @@ export default function JobsList({ navigation }) {
                 <Text style={JobsListStyles.company}>
                   Horário: {item.officeHour}
                 </Text>
-                <Button
-                  color={"#7ac6c0"}
-                  title="Candidatar-se"
+                <TouchableOpacity
+                  style={JobsListStyles.cardButtons}
                   onPress={() =>
-                    navigation.navigate("apply", { id: item.id, user: id , jobName: item.jobName})
-                  }
-                />
+                    navigation.navigate('apply', {
+                      id: item.id,
+                      user: id,
+                      jobName: item.jobName,
+                    })
+                  }>
+                  <Text style={JobsListStyles.btnText}>Candidatar-se</Text>
+                </TouchableOpacity>
               </Card>
             );
           })}
@@ -202,13 +210,13 @@ export default function JobsList({ navigation }) {
           </TouchableOpacity>
         )}
         {loading ? (
-          <ActivityIndicator color="7ac6c0" size={"small"} />
+          <ActivityIndicator color="7ac6c0" size={'small'} />
         ) : (
-          <Button
-            color={"#7ac6c0"}
-            title="Carregar mais vagas"
-            onPress={() => loadNextPage()}
-          />
+          <TouchableOpacity
+            style={JobsListStyles.cardButtons}
+            onPress={() => loadNextPage()}>
+            <Text style={JobsListStyles.btnText}>Carregar mais vagas</Text>
+          </TouchableOpacity>
         )}
       </ScrollView>
     </SafeAreaView>

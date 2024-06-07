@@ -5,16 +5,16 @@ import {
   Button,
   RefreshControl,
   TouchableOpacity,
-} from "react-native";
-import { Surface, HelperText, Modal } from "react-native-paper";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
-import Navbar from "../UserPages/UserNav";
-import { deactivateURL, overallURL, recruiterJobListURL } from "../index";
-import { SelectList } from "react-native-dropdown-select-list";
+} from 'react-native';
+import { Surface, HelperText, Modal } from 'react-native-paper';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from 'react';
+import Navbar from '../UserPages/UserNav';
+import { deactivateURL, overallURL, recruiterJobListURL } from '../index';
+import { SelectList } from 'react-native-dropdown-select-list';
 
 export default function RecruiterHome({ navigation }) {
-  const { getItem } = useAsyncStorage("id");
+  const { getItem } = useAsyncStorage('id');
   const [userData, setUserData] = useState(null);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,17 +27,17 @@ export default function RecruiterHome({ navigation }) {
       try {
         const id = await getItem();
         const response = await fetch(`${overallURL}/${id}`, {
-          method: "GET",
+          method: 'GET',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         });
         const userData = await response.json();
         setUserData(userData);
         setIsLoading(false);
       } catch (error) {
-        console.error("Erro ao buscar dados:", error);
+        console.error('Erro ao buscar dados:', error);
         setIsLoading(true);
       }
     };
@@ -50,10 +50,10 @@ export default function RecruiterHome({ navigation }) {
       try {
         const id = await getItem();
         const response = await fetch(`${recruiterJobListURL}/${id}`, {
-          method: "GET",
+          method: 'GET',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         });
         const data = await response.json();
@@ -63,36 +63,36 @@ export default function RecruiterHome({ navigation }) {
         setData(newArray);
         setIsLoading(false);
       } catch (error) {
-        console.error("Erro ao buscar dados:", error);
+        console.error('Erro ao buscar dados:', error);
         setIsLoading(true);
       }
     };
 
     fetchMyOpportunities();
-  }, []);
+  }, [isLoading]);
 
   async function disableOpportunity(idToDisable) {
     console.log(idToDisable);
 
     try {
       const response = await fetch(`${deactivateURL}`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           id: idToDisable,
         }),
       });
       const data = await response.json();
-      if (data === "Desativado") {
-        console.log("desativou");
+      if (data === 'Desativado') {
+        console.log('desativou');
       }
 
       hideModal;
     } catch (error) {
-      console.error("Erro ao buscar dados:", error);
+      console.error('Erro ao buscar dados:', error);
       setIsLoading(true);
     }
   }
@@ -108,7 +108,7 @@ export default function RecruiterHome({ navigation }) {
   const hideModal = () => setVisible(false);
 
   return (
-    <View style={{ height: "100%" }}>
+    <View style={{ height: '100%' }}>
       <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       <Navbar navigation={navigation} />
       <Text style={styles.txt}>Bem vindo ao Job Finder</Text>
@@ -136,13 +136,13 @@ export default function RecruiterHome({ navigation }) {
               <Button
                 title="Criar Vaga"
                 color="#7ac6c0"
-                onPress={() => navigation.navigate("create")}
+                onPress={() => navigation.navigate('create')}
               />
               <View style={styles.selectView}>
                 <SelectList
                   placeholder="Selecione a Vaga"
                   searchPlaceholder="Pesquise a vaga"
-                  dropdownStyles={{ backgroundColor: "#fff" }}
+                  dropdownStyles={{ backgroundColor: '#fff' }}
                   boxStyles={styles.dropdown}
                   setSelected={(val) => setValue(val)}
                   data={data}
@@ -155,17 +155,16 @@ export default function RecruiterHome({ navigation }) {
               </View>
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-evenly",
-                  height: "25%",
-                  width: "100%",
-                }}
-              >
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                  height: '25%',
+                  width: '100%',
+                }}>
                 <Button
                   title="Editar Vaga"
                   color="#7ac6c0"
-                  onPress={() => console.log(value)}
+                  onPress={() => navigation.navigate('update', { id: value })}
                 />
                 <Button
                   title="Desativar Vaga"
@@ -180,24 +179,21 @@ export default function RecruiterHome({ navigation }) {
       <Modal
         visible={visible}
         onDismiss={hideModal}
-        contentContainerStyle={styles.modal}
-      >
+        contentContainerStyle={styles.modal}>
         <Text>Deseja realmente desativar essa vaga ?</Text>
         <View
           style={{
-            flexDirection: "row",
-            width: "100%",
-            justifyContent: "space-evenly",
-          }}
-        >
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-evenly',
+          }}>
           <TouchableOpacity
             style={styles.touch}
-            onPress={() => disableOpportunity(value)}
-          >
-            <Text style={{ textAlign: "center", color: "#fff" }}>Sim</Text>
+            onPress={() => disableOpportunity(value)}>
+            <Text style={{ textAlign: 'center', color: '#fff' }}>Sim</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.touch} onPress={hideModal}>
-            <Text style={{ textAlign: "center", color: "#fff" }}>Não</Text>
+            <Text style={{ textAlign: 'center', color: '#fff' }}>Não</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -207,16 +203,16 @@ export default function RecruiterHome({ navigation }) {
 
 const styles = StyleSheet.create({
   txt: {
-    textAlign: "center",
+    textAlign: 'center',
     margin: 4,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 20,
   },
   touch: {
-    width: "30%",
-    alignSelf: "center",
-    justifyContent: "center",
-    backgroundColor: "#7ac6c0",
+    width: '30%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#7ac6c0',
     padding: 6,
     borderRadius: 5,
     marginVertical: 10,
@@ -225,62 +221,53 @@ const styles = StyleSheet.create({
     padding: 8,
     height: 100,
     width: 100,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 10,
   },
   surfaceBtn: {
     padding: 8,
-    height: "auto",
+    height: 'auto',
     width: 300,
-    backgroundColor: "#d2f7f4",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    borderRadius: 10,
-  },
-  surfaceEdit: {
-    padding: 8,
-    height: "auto",
-    width: 300,
-    backgroundColor: "#d2f7f4",
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    backgroundColor: '#d2f7f4',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
     borderRadius: 10,
   },
   surfaceView: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     padding: 10,
   },
   optionsSurface: {
     paddingHorizontal: 8,
     height: 520,
     width: 350,
-    alignItems: "center",
-    justifyContent: "space-around",
-    alignSelf: "center",
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    alignSelf: 'center',
     borderRadius: 10,
   },
   dropdown: {
     height: 50,
-    width: "100%",
-    borderColor: "gray",
+    width: '100%',
+    borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   selectView: {
-    width: "100%",
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modal: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 20,
-    width: "70%",
-    height: "30%",
-    alignSelf: "center",
+    width: '70%',
+    height: '30%',
+    alignSelf: 'center',
   },
 });
